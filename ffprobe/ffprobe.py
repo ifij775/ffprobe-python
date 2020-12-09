@@ -9,6 +9,10 @@ import platform
 import re
 import subprocess
 
+from ffprobe.FFFormat import FFFormat
+from ffprobe.FFStream import FFStream
+from ffprobe.FFFrame import FFFrame
+from ffprobe.FFPacket import FFPacket
 from ffprobe.exceptions import FFProbeError
 
 
