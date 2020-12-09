@@ -40,6 +40,8 @@ class FFProbe:
             cmd.append(self.path_to_video)
 
             p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+            #TODO: Read data while processing, otherwise process will hang
             p.wait(timeout)
 
             stream = False
