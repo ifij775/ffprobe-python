@@ -18,7 +18,7 @@ class FFProbe:
         metadata=FFProbe('multimedia-file.mov')
     """
 
-    def __init__(self, path_to_video, showFormat=True, showStreams=True, showFrames=True, showPackets=True, timeout=60):
+    def __init__(self, path_to_video, show_format=True, show_streams=True, show_frames=True, show_packets=True, select_streams='', timeout=60):
         self.path_to_video = path_to_video
 
         try:
