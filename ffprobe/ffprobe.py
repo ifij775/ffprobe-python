@@ -33,7 +33,7 @@ class FFProbe:
                 cmd.append("-show_format")
             if show_streams:
                 cmd.append("-show_streams")
-            if show_packets:
+            if show_frames:
                 cmd.append("-show_frames")
             if show_packets:
                 cmd.append("-show_packets")
