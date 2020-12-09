@@ -1,5 +1,9 @@
 from __future__ import print_function
 
+# added this so I could run tests
+import sys
+sys.path.append(".")
+
 import unittest
 import os
 from ffprobe import FFProbe
