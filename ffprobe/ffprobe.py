@@ -25,12 +25,6 @@ class FFProbe:
     def __init__(self, path_to_video, show_format=True, show_streams=True, show_frames=False, show_packets=False, select_streams='', timeout=None):
         self.path_to_video = path_to_video
 
-        try:
-            with open(os.devnull, 'w') as tempf:
-                subprocess.check_call(["ffprobe", "-h"], stdout=tempf, stderr=tempf)
-        except FileNotFoundError:
-            raise IOError('ffprobe not found.')
-
         if os.path.isfile(self.path_to_video) or self.path_to_video.startswith('http'):
             cmd = ["ffprobe","-v","quiet"]
             if show_format:
@@ -132,3 +126,12 @@ class FFProbe:
 
     def __repr__(self):
         return "<FFprobe: {metadata}, {video}, {audio}, {subtitle}, {attachment}>".format(**vars(self))
+    
+    @staticmethod
+    def check_ffprobe():
+        try:
+            with open(os.devnull, 'w') as tempf:
+                subprocess.check_call(["ffprobe", "-h"], stdout=tempf, stderr=tempf)
+        except FileNotFoundError:
+            return False
+        return True
