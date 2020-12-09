@@ -28,7 +28,7 @@ class FFProbe:
             raise IOError('ffprobe not found.')
 
         if os.path.isfile(self.path_to_video) or self.path_to_video.startswith('http'):
-            cmd = ["ffprobe"]
+            cmd = ["ffprobe","-v","quiet"]
             if show_format:
                 cmd.append("-show_format")
             if show_streams:
