@@ -42,7 +42,7 @@ class FFProbe:
             p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
             #TODO: Read data while processing, otherwise process will hang
-            p.wait(timeout)
+            #p.wait(timeout)
 
             stream = False
             ignore_line = False
@@ -101,15 +101,6 @@ class FFProbe:
                         if m is not None:
                             # print(m.groups())
                             self.metadata[m.groups()[0]] = m.groups()[1].strip()
-
-                if '[STREAM]' in line:
-                    stream = True
-                    data_lines = []
-                elif '[/STREAM]' in line and stream:
-                    stream = False
-                    self.streams.append(FFFormat(data_lines))
-                elif stream:
-                    data_lines.append(line)
 
             p.stdout.close()
             p.stderr.close()
