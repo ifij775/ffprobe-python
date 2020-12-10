@@ -69,7 +69,7 @@ class FFProbe:
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
                     self.streams.append(FFStream(data_lines))
-                elif stream:
+                elif stream or packet:
                     if '[SIDE_DATA]' in line:
                         ignore_line = True
                     elif '[/SIDE_DATA]' in line:
