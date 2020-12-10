@@ -101,6 +101,8 @@ class FFProbe:
                         if m is not None:
                             # print(m.groups())
                             self.metadata[m.groups()[0]] = m.groups()[1].strip()
+                            
+            p.wait(timeout)
 
             p.stdout.close()
             p.stderr.close()
