@@ -92,9 +92,11 @@ class FFProbe:
                     self.frames.append(FFFrame(data_lines))
                 elif '[PACKET]' in line:
                     packet = True
+                    ignore_line = False
                     data_lines = []
                 elif '[/PACKET]' in line and packet:
                     packet = False
+                    ignore_line = False
                     # noinspection PyUnboundLocalVariable
                     self.packets.append(FFPacket(data_lines))
                 elif stream or format_ or packet or frame:
