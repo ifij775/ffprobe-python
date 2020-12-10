@@ -47,12 +47,16 @@ class FFProbe:
             stream = False
             ignore_line = False
             format_ = False
+            frame = False
+            packet = False
             self.format = None
             self.streams = []
             self.video = []
             self.audio = []
             self.subtitle = []
             self.attachment = []
+            self.packets = []
+            self.frames = []
 
             for line in iter(p.stdout.readline, b''):
                 line = line.decode('UTF-8')
@@ -79,7 +83,21 @@ class FFProbe:
                     format_ = False
                     # noinspection PyUnboundLocalVariable
                     self.format = FFFormat(data_lines)
-                elif stream or format_:
+                elif '[FRAME]' in line:
+                    frame = True
+                    data_lines = []
+                elif '[/FRAME]' in line and frame:
+                    frame = False
+                    # noinspection PyUnboundLocalVariable
+                    self.frame = FFFrame(data_lines)
+                elif '[PACKET]' in line:
+                    packet = True
+                    data_lines = []
+                elif '[/PACKET]' in line and packet:
+                    packet = False
+                    # noinspection PyUnboundLocalVariable
+                    self.packet = FFPacket(data_lines)
+                elif stream or format_ or packet or frame:
                     data_lines.append(line)
 
             self.metadata = {}
