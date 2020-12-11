@@ -86,7 +86,7 @@ class FFProbe:
                 elif line.startswith('[FRAME]'):
                     frame = True
                     data_lines = []
-                elif frames and line.startswith('[/FRAME]'):
+                elif frame and line.startswith('[/FRAME]'):
                     frame = False
                     # noinspection PyUnboundLocalVariable
                     self.frames.append(FFFrame(data_lines))
