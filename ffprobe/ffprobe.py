@@ -35,6 +35,8 @@ class FFProbe:
                 cmd.append("-show_frames")
             if show_packets:
                 cmd.append("-show_packets")
+            if show_entries:
+                cmd.extend(["-show_entries",show_entries])
             if select_streams:
                 cmd.extend(["-select_streams",select_streams])
             if count_frames:
