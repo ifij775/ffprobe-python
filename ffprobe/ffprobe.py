@@ -60,51 +60,51 @@ class FFProbe:
 
             for line in iter(p.stdout.readline, b''):
                 line = line.decode('UTF-8')
-                if line.beginswith('[STREAM]'):
+                if line.startswith('[STREAM]'):
                     stream = True
                     ignore_line = False
                     data_lines = []
-                elif stream and line.beginswith('[/STREAM]'):
+                elif stream and line.startswith('[/STREAM]'):
                     stream = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
                     self.streams.append(FFStream(data_lines))
                 elif stream:
-                    if '[SIDE_DATA]' in line:
+                    if line.startswith('[SIDE_DATA]'):
                         ignore_line = True
-                    elif '[/SIDE_DATA]' in line:
+                    elif line.startswith('[/SIDE_DATA]'):
                         ignore_line = False
-                    elif ignore_line is False:
+                    elif not ignore_line:
                         data_lines.append(line)
-                elif line.beginswith('[FORMAT]'):
+                elif line.startswith('[FORMAT]'):
                     format_ = True
                     data_lines = []
-                elif format_ and line.beginswith('[/FORMAT]'):
+                elif format_ and line.startswith('[/FORMAT]'):
                     format_ = False
                     # noinspection PyUnboundLocalVariable
                     self.format = FFFormat(data_lines)
-                elif line.beginswith('[FRAME]'):
+                elif line.startswith('[FRAME]'):
                     frame = True
                     data_lines = []
-                elif frames and line.beginswith('[/FRAME]'):
+                elif frames and line.startswith('[/FRAME]'):
                     frame = False
                     # noinspection PyUnboundLocalVariable
                     self.frames.append(FFFrame(data_lines))
-                elif line.beginswith('[PACKET]'):
+                elif line.startswith('[PACKET]'):
                     packet = True
                     ignore_line = False
                     data_lines = []
-                elif packet and line.beginswith('[/PACKET]'):
+                elif packet and line.startswith('[/PACKET]'):
                     packet = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
                     self.packets.append(FFPacket(data_lines))
                 elif packet:
-                    if '[SIDE_DATA]' in line:
+                    if line.startswith('[SIDE_DATA]'):
                         ignore_line = True
-                    elif '[/SIDE_DATA]' in line:
+                    elif line.startswith('[/SIDE_DATA]'):
                         ignore_line = False
-                    elif ignore_line is False:
+                    elif not ignore_line:
                         data_lines.append(line)
                 elif format_ or frame:
                     data_lines.append(line)
