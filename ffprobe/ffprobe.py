@@ -22,7 +22,7 @@ class FFProbe:
         metadata=FFProbe('multimedia-file.mov')
     """
 
-    def __init__(self, path_to_video, show_format=True, show_streams=True, show_frames=False, show_packets=False, select_streams='', count_frames=False, timeout=None):
+    def __init__(self, path_to_video, show_format=True, show_streams=True, show_frames=False, show_packets=False, show_entries='', select_streams='', count_frames=False, timeout=None):
         self.path_to_video = path_to_video
 
         if os.path.isfile(self.path_to_video) or self.path_to_video.startswith('http'):
