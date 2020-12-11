@@ -60,11 +60,11 @@ class FFProbe:
 
             for line in iter(p.stdout.readline, b''):
                 line = line.decode('UTF-8')
-                if '[STREAM]' in line:
+                if line.beginswith('[STREAM]'):
                     stream = True
                     ignore_line = False
                     data_lines = []
-                elif '[/STREAM]' in line and stream:
+                elif stream and line.beginswith('[/STREAM]'):
                     stream = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
@@ -76,25 +76,25 @@ class FFProbe:
                         ignore_line = False
                     elif ignore_line is False:
                         data_lines.append(line)
-                elif '[FORMAT]' in line:
+                elif line.beginswith('[FORMAT]'):
                     format_ = True
                     data_lines = []
-                elif '[/FORMAT]' in line and format_:
+                elif format_ and line.beginswith('[/FORMAT]'):
                     format_ = False
                     # noinspection PyUnboundLocalVariable
                     self.format = FFFormat(data_lines)
-                elif '[FRAME]' in line:
+                elif line.beginswith('[FRAME]'):
                     frame = True
                     data_lines = []
-                elif '[/FRAME]' in line and frame:
+                elif frames and line.beginswith('[/FRAME]'):
                     frame = False
                     # noinspection PyUnboundLocalVariable
                     self.frames.append(FFFrame(data_lines))
-                elif '[PACKET]' in line:
+                elif line.beginswith('[PACKET]'):
                     packet = True
                     ignore_line = False
                     data_lines = []
-                elif '[/PACKET]' in line and packet:
+                elif packet and line.beginswith('[/PACKET]'):
                     packet = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
