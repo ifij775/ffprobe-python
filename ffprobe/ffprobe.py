@@ -162,14 +162,14 @@ class FFProbe:
     def get_packets_by_stream(self):
         packets_by_stream = {}
         if self.streams:
-            packets_by_stream = dict.fromkeys([stream.get_index() for stream in self.streams],[])
+            packets_by_stream = dict.fromkeys([stream.index() for stream in self.streams],[])
             for packet in self.packets:
                 packets_by_stream[packet['stream_index']].append(packet)
         return packets_by_stream
     def get_frames_by_stream(self):
         frames_by_stream = {}
         if self.streams:
-            frames_by_stream = dict.fromkeys([stream.get_index() for stream in self.streams],[])
+            frames_by_stream = dict.fromkeys([stream.index() for stream in self.streams],[])
             for frame in self.frames:
                 frames_by_stream[frame['stream_index']].append(frame)
         return frames_by_stream
