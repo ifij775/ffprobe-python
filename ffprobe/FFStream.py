@@ -40,6 +40,9 @@ class FFStream:
             template = ''
 
         return template.format(**self.__dict__)
+    
+    def get_index(self):
+        return self.__dict__['index']
 
     def is_audio(self):
         """
