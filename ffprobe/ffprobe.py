@@ -161,17 +161,19 @@ class FFProbe:
         return self.frames
     def get_packets_by_stream(self):
         packets_by_stream = {}
-        for stream in self.streams:
-            packets_by_stream[stream['index']] = []
-        for packet in self.packets:
-            packets_by_stream[packet['stream_index']].append(packet)
+        if self.streams:
+            for stream in self.streams:
+                packets_by_stream[stream['index']] = []
+            for packet in self.packets:
+                packets_by_stream[packet['stream_index']].append(packet)
         return packets_by_stream
     def get_frames_by_stream(self):
         frames_by_stream = {}
-        for stream in self.streams:
-            frames_by_stream[stream['index']] = []
-        for frame in self.frames:
-            frames_by_stream[frame['stream_index']].append(frame)
+        if self.streams:
+            for stream in self.streams:
+                frames_by_stream[stream['index']] = []
+            for frame in self.frames:
+                frames_by_stream[frame['stream_index']].append(frame)
         return frames_by_stream
         
 
