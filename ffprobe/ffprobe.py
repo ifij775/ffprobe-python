@@ -146,6 +146,34 @@ class FFProbe:
                     self.attachment.append(stream)
         else:
             raise IOError('No such media file or stream is not responding: ' + self.path_to_video)
+            
+    def get_format(self):
+        return self.format
+    def get_streams(self):
+        return self.streams
+    def get_audio_streams(self):
+        return self.audio
+    def get_video_streams(self):
+        return self.video
+    def get_packets(self):
+        return self.packets
+    def get_frames(self):
+        return self.frames
+    def get_packets_by_stream(self):
+        packets_by_stream = {}
+        for stream in self.streams:
+            packets_by_stream[stream['index']] = []
+        for packet in self.packets:
+            packets_by_stream[packet['stream_index']].append(packet)
+        return packets_by_stream
+    def get_frames_by_stream(self):
+        frames_by_stream = {}
+        for stream in self.streams:
+            frames_by_stream[stream['index']] = []
+        for frame in self.frames:
+            frames_by_stream[frame['stream_index']].append(frame)
+        return frames_by_stream
+        
 
     def __repr__(self):
         return "<FFprobe: {metadata}, {video}, {audio}, {subtitle}, {attachment}>".format(**vars(self))
