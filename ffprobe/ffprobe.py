@@ -50,14 +50,15 @@ class FFProbe:
             format_ = False
             frame = False
             packet = False
-            self.format = None
-            self.streams = []
-            self.video = []
-            self.audio = []
-            self.subtitle = []
-            self.attachment = []
-            self.packets = []
-            self.frames = []
+            
+            self.format_data = None
+            self.streams_data = []
+            self.video_data = []
+            self.audio_data = []
+            self.subtitle_data = []
+            self.attachment_data = []
+            self.packets_data = []
+            self.frames_data = []
 
             for line in iter(p.stdout.readline, b''):
                 line = line.decode('UTF-8')
@@ -69,7 +70,7 @@ class FFProbe:
                     stream = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
-                    self.streams.append(FFStream(data_lines))
+                    self.streams_data.append(FFStream(data_lines))
                 elif stream:
                     if line.startswith('[SIDE_DATA]'):
                         ignore_line = True
@@ -83,14 +84,14 @@ class FFProbe:
                 elif format_ and line.startswith('[/FORMAT]'):
                     format_ = False
                     # noinspection PyUnboundLocalVariable
-                    self.format = FFFormat(data_lines)
+                    self.format_data = FFFormat(data_lines)
                 elif line.startswith('[FRAME]'):
                     frame = True
                     data_lines = []
                 elif frame and line.startswith('[/FRAME]'):
                     frame = False
                     # noinspection PyUnboundLocalVariable
-                    self.frames.append(FFFrame(data_lines))
+                    self.frames_data.append(FFFrame(data_lines))
                 elif line.startswith('[PACKET]'):
                     packet = True
                     ignore_line = False
@@ -99,7 +100,7 @@ class FFProbe:
                     packet = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
-                    self.packets.append(FFPacket(data_lines))
+                    self.packets_data.append(FFPacket(data_lines))
                 elif packet:
                     if line.startswith('[SIDE_DATA]'):
                         ignore_line = True
@@ -110,7 +111,7 @@ class FFProbe:
                 elif format_ or frame:
                     data_lines.append(line)
 
-            self.metadata = {}
+            self.metadata_data = {}
             is_metadata = False
             stream_metadata_met = False
 
@@ -128,55 +129,56 @@ class FFProbe:
                         m = re.search(r'(\w+)\s*:\s*(.*)$', s)
                         if m is not None:
                             # print(m.groups())
-                            self.metadata[m.groups()[0]] = m.groups()[1].strip()
+                            self.metadata_data[m.groups()[0]] = m.groups()[1].strip()
                             
             p.wait(timeout)
 
             p.stdout.close()
             p.stderr.close()
 
-            for stream in self.streams:
+            for stream in self.streams_data:
                 if stream.is_audio():
-                    self.audio.append(stream)
+                    self.audio_data.append(stream)
                 elif stream.is_video():
-                    self.video.append(stream)
+                    self.video_data.append(stream)
                 elif stream.is_subtitle():
-                    self.subtitle.append(stream)
+                    self.subtitle_data.append(stream)
                 elif stream.is_attachment():
-                    self.attachment.append(stream)
+                    self.attachment_data.append(stream)
         else:
             raise IOError('No such media file or stream is not responding: ' + self.path_to_video)
             
-    def get_format(self):
-        return self.format
-    def get_streams(self):
-        return self.streams
-    def get_audio_streams(self):
-        return self.audio
-    def get_video_streams(self):
-        return self.video
-    def get_packets(self):
-        return self.packets
-    def get_frames(self):
-        return self.frames
+    def format(self):
+        return self.format_data
+    def streams(self):
+        return self.streams_data
+    def audio_streams(self):
+        return self.audio_data
+    def video_streams(self):
+        return self.video_data
+    def packets(self):
+        return self.packets_data
+    def frames(self):
+        return self.frames_data
+    
     def get_packets_by_stream(self):
         packets_by_stream = {}
-        if self.streams:
-            packets_by_stream = dict.fromkeys([stream.index() for stream in self.streams],[])
-            for packet in self.packets:
+        if self.streams_data:
+            packets_by_stream = dict.fromkeys([stream.index() for stream in self.streams_data],[])
+            for packet in self.packets_data:
                 packets_by_stream[packet['stream_index']].append(packet)
         return packets_by_stream
     def get_frames_by_stream(self):
         frames_by_stream = {}
-        if self.streams:
-            frames_by_stream = dict.fromkeys([stream.index() for stream in self.streams],[])
-            for frame in self.frames:
+        if self.streams_data:
+            frames_by_stream = dict.fromkeys([stream.index() for stream in self.streams_data],[])
+            for frame in self.frames_data:
                 frames_by_stream[frame['stream_index']].append(frame)
         return frames_by_stream
         
 
     def __repr__(self):
-        return "<FFprobe: {metadata}, {video}, {audio}, {subtitle}, {attachment}>".format(**vars(self))
+        return "<FFprobe: {metadata_data}, {video_data}, {audio_data}, {subtitle_data}, {attachment_data}>".format(**vars(self))
     
     @staticmethod
     def check_ffprobe():
