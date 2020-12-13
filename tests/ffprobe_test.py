@@ -63,6 +63,12 @@ def print_ffprobe(media: FFProbe):
         print('\t\tIs video:', stream.is_video())
     print('\tPackets:', len(media.packets()))
     print('\tFrames:', len(media.frames()))
+    frames_by_stream = media.get_frames_by_stream()
+    for item in frames_by_stream.items():
+        print('\tFrames: (%d,%d)'%(item[0],len(item[1])))
+    packets_by_stream = media.get_packets_by_stream()
+    for item in packets_by_stream.items():
+        print('\tPackets: (%d,%d)'%(item[0],len(item[1])))
 
 
 if __name__ == '__main__':
