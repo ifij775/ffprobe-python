@@ -41,7 +41,7 @@ class FFStream:
 
         return template.format(**self.__dict__)
     
-    def index(self):
+    def stream_index(self):
         """
         The stream index
         """
