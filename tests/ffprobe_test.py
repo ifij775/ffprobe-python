@@ -50,9 +50,9 @@ class FFProbeTest(unittest.TestCase):
 
 
 def print_ffprobe(media: FFProbe):
-    print('\tFormat:', media.format.format_name, "(", media.format.format_long_name, ")")
-    print('\tStreams:', len(media.streams))
-    for index, stream in enumerate(media.streams, 1):
+    print('\tFormat:', media.format().format_name, "(", media.format().format_long_name, ")")
+    print('\tStreams:', len(media.streams()))
+    for index, stream in enumerate(media.streams(), 1):
         print('\tStream: ', index)
         print('\t\tCodec:', stream.codec_description())
         if stream.is_video():
@@ -61,6 +61,8 @@ def print_ffprobe(media: FFProbe):
         print('\t\tDuration:', stream.duration_seconds())
         print('\t\tFrames:', stream.frames())
         print('\t\tIs video:', stream.is_video())
+    print('\tPackets:', len(media.packets()))
+    print('\tFrames:', len(media.frames()))
 
 
 if __name__ == '__main__':
