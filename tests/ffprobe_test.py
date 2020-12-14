@@ -25,7 +25,7 @@ test_streams = [
 
 class FFProbeTest(unittest.TestCase):
     def test_ffprobe(self):
-        if FFProbe.check_ffprobe():
+        if not FFProbe.check_ffprobe():
             raise FFProbeError('ffprobe not found')
     def test_video(self):
         for test_video in test_videos:
