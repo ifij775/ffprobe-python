@@ -4,7 +4,7 @@ Python wrapper for ffprobe command line tool. ffprobe must exist in the path.
 
 class FFPacket:
     """
-    An object representation of the multimedia frame.
+    An object representation of the multimedia stream packet.
     """
 
     def __init__(self, data_lines):
@@ -16,6 +16,13 @@ class FFPacket:
     
     def stream_index(self):
         return int(self.__dict__['stream_index'])
+    
+    def pts(self):
+        return int(self.__dict__['pts'])
+    
+    def pts_time(self):
+        return float(self.__dict__['pts_time'])
+
 
     def __repr__(self):
         template = "<Packet: #Media-type: {media_type}, Stream-index: {stream_index} ({pts_time})>"
