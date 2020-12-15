@@ -23,7 +23,18 @@ class FFPacket:
     def pts_time(self):
         return float(self.__dict__['pts_time'])
 
+    def dts(self):
+        return int(self.__dict__['dts'])
+    
+    def dts_time(self):
+        return float(self.__dict__['dts_time'])
 
+    def duration(self):
+        return int(self.__dict__['duration'])
+    
+    def duration_time(self):
+        return float(self.__dict__['duration_time'])
+    
     def __repr__(self):
         template = "<Packet: #Media-type: {media_type}, Stream-index: {stream_index} ({pts_time})>"
         return template.format(**self.__dict__)
