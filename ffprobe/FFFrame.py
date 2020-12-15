@@ -32,7 +32,17 @@ class FFFrame:
     def pkt_dts_time(self):
         return float(self.__dict__['pkt_dts_time'])
     
+    def pkt_duration(self):
+        return int(self.__dict__['pkt_duration'])
     
+    def pkt_duration_time(self):
+        return float(self.__dict__['pkt_duration_time'])
+    
+    def pkt_pos(self):
+        return int(self.__dict__['pkt_pos'])
+    
+    def pkt_size(self):
+        return int(self.__dict__['pkt_size'])
 
     def __repr__(self):
         template = "<Frame: #Media-type: {media_type}, Stream-index: {stream_index} ({pkt_pts_time})>"
