@@ -1,4 +1,4 @@
-import FFFrame.py
+import FFFrame
 
 class FFAudioFrame(FFFrame):
     def sample_fmt(self):
