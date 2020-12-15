@@ -34,6 +34,12 @@ class FFPacket:
     
     def duration_time(self):
         return float(self.__dict__['duration_time'])
+
+    def size(self):
+        return int(self.__dict__['size'])
+    
+    def pos(self):
+        return int(self.__dict__['pos'])
     
     def __repr__(self):
         template = "<Packet: #Media-type: {media_type}, Stream-index: {stream_index} ({pts_time})>"
