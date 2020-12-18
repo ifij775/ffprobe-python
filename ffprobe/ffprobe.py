@@ -75,19 +75,19 @@ class FFProbe:
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
                     data_dict = FFProbe.parse_data(data_lines)
-                    if data_dict['stream_type'] == 'audio':
+                    if data_dict['codec_type'] == 'audio':
                         stream_obj = FFAudioStream(data_dict)
                         self.streams_data.append(stream_obj)
                         self.audio_data.append(stream_obj)
-                    elif data_dict['stream_type'] == 'video':
+                    elif data_dict['codec_type'] == 'video':
                         stream_obj = FFVideoStream(data_dict)
                         self.streams_data.append(stream_obj)
                         self.video_data.append(stream_obj)
-                    elif data_dict['stream_type'] == 'subtitle':
+                    elif data_dict['codec_type'] == 'subtitle':
                         stream_obj = FFSubtitleStream(data_dict)
                         self.streams_data.append(stream_obj)
                         self.subtitle_data.append(stream_obj)
-                    elif data_dict['stream_type'] == 'attachment':
+                    elif data_dict['codec_type'] == 'attachment':
                         stream_obj = FFAttachmentStream(data_dict)
                         self.streams_data.append(stream_obj)
                         self.attachment_data.append(stream_obj)
