@@ -12,6 +12,9 @@ import subprocess
 from ffprobe.FFFormat import FFFormat
 from ffprobe.FFStream import FFStream
 from ffprobe.FFAudioStream import FFAudioStream
+from ffprobe.FFVideoStream import FFVideoStream
+from ffprobe.FFSubtitleStream import FFSubtitleStream
+from ffprobe.FFAttachmentStream import FFAttachmentStream
 from ffprobe.FFFrame import FFFrame
 from ffprobe.FFPacket import FFPacket
 from ffprobe.exceptions import FFProbeError
@@ -73,9 +76,23 @@ class FFProbe:
                     # noinspection PyUnboundLocalVariable
                     data_dict = FFProbe.parse_data(data_lines)
                     if data_dict['stream_type'] == 'audio':
-                        self.streams_data.append(FFAudioStream(data_dict))
+                        stream_obj = FFAudioStream(data_dict)
+                        self.streams_data.append(stream_obj)
+                        self.audio_data.append(stream_obj)
+                    elif data_dict['stream_type'] == 'video':
+                        stream_obj = FFVideoStream(data_dict)
+                        self.streams_data.append(stream_obj)
+                        self.video_data.append(stream_obj)
+                    elif data_dict['stream_type'] == 'subtitle':
+                        stream_obj = FFSubtitleStream(data_dict)
+                        self.streams_data.append(stream_obj)
+                        self.subtitle_data.append(stream_obj)
+                    elif data_dict['stream_type'] == 'attachment':
+                        stream_obj = FFAttachmentStream(data_dict)
+                        self.streams_data.append(stream_obj)
+                        self.attachment_data.append(stream_obj)
                     else:
-                        self.streams_data.append(FFStream(data_dict))
+                        print('stream_type unknown')
                 elif stream:
                     if line.startswith('[SIDE_DATA]'):
                         ignore_line = True
@@ -140,16 +157,6 @@ class FFProbe:
 
             p.stdout.close()
             p.stderr.close()
-
-            for stream in self.streams_data:
-                if stream.is_audio():
-                    self.audio_data.append(stream)
-                elif stream.is_video():
-                    self.video_data.append(stream)
-                elif stream.is_subtitle():
-                    self.subtitle_data.append(stream)
-                elif stream.is_attachment():
-                    self.attachment_data.append(stream)
         else:
             raise IOError('No such media file or stream is not responding: ' + self.path_to_video)
             
