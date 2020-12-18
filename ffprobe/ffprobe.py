@@ -148,6 +148,13 @@ class FFProbe:
         else:
             raise IOError('No such media file or stream is not responding: ' + self.path_to_video)
             
+    @staticmethod
+    def parse_data(data_lines):
+        data_dict = {}
+        for line in data_lines:
+            data_dict.update({key: value for key, value, *_ in [line.strip().split('=')]})
+        return data_dict
+            
     def format(self):
         return self.format_data
     def streams(self):
