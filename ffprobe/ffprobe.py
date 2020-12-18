@@ -11,6 +11,7 @@ import subprocess
 
 from ffprobe.FFFormat import FFFormat
 from ffprobe.FFStream import FFStream
+from ffprobe.FFAudioStream import FFAudioStream
 from ffprobe.FFFrame import FFFrame
 from ffprobe.FFPacket import FFPacket
 from ffprobe.exceptions import FFProbeError
@@ -70,7 +71,11 @@ class FFProbe:
                     stream = False
                     ignore_line = False
                     # noinspection PyUnboundLocalVariable
-                    self.streams_data.append(FFStream(data_lines))
+                    data_dict = FFProbe.parse_data(data_lines)
+                    if data_dict['stream_type'] == 'audio':
+                        self.streams_data.append(FFAudioStream(data_dict))
+                    else:
+                        self.streams_data.append(FFStream(data_dict))
                 elif stream:
                     if line.startswith('[SIDE_DATA]'):
                         ignore_line = True
