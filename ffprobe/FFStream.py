@@ -9,21 +9,20 @@ class FFStream:
     An object representation of an individual stream in a multimedia file.
     """
 
-    def __init__(self, data_lines):
-        for line in data_lines:
-            self.__dict__.update({key: value for key, value, *_ in [line.strip().split('=')]})
+    def __init__(self, data_dict):
+        self.__dict__.update(data_dict)
 
-            try:
-                self.__dict__['framerate'] = round(
-                    functools.reduce(
-                        operator.truediv, map(int, self.__dict__.get('avg_frame_rate', '').split('/'))
-                    )
+        try:
+            self.__dict__['framerate'] = round(
+                functools.reduce(
+                    operator.truediv, map(int, self.__dict__.get('avg_frame_rate', '').split('/'))
                 )
+            )
 
-            except ValueError:
-                self.__dict__['framerate'] = None
-            except ZeroDivisionError:
-                self.__dict__['framerate'] = 0
+        except ValueError:
+            self.__dict__['framerate'] = None
+        except ZeroDivisionError:
+            self.__dict__['framerate'] = 0
 
     def __repr__(self):
         if self.is_video():
