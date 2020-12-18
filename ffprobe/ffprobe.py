@@ -26,7 +26,20 @@ class FFProbe:
         metadata=FFProbe('multimedia-file.mov')
     """
 
-    def __init__(self, path_to_video, show_format=True, show_streams=True, show_frames=False, show_packets=False, show_entries='', select_streams='', count_frames=False, timeout=None):
+    def __init__(self,
+                 path_to_video,
+                 show_format=True,
+                 show_streams=True,
+                 show_frames=False,
+                 show_packets=False,
+                 select_streams='',
+                 show_format_entries={},
+                 show_stream_entries={},
+                 show_packet_entries={},
+                 show_frame_entries={},
+                 count_frames=False,
+                 timeout=None):
+        
         self.path_to_video = path_to_video
 
         if os.path.isfile(self.path_to_video) or self.path_to_video.startswith('http'):
@@ -39,6 +52,24 @@ class FFProbe:
                 cmd.append("-show_frames")
             if show_packets:
                 cmd.append("-show_packets")
+                
+            if show_format_entries:
+                show_format_entries_str = 'format=' + ','.join(show_format_entries)
+            else:
+                show_format_entries_str = ''
+            if show_stream_entries:
+                show_stream_entries_str = 'stream=' + ','.join(show_stream_entries.add('codec_type'))
+            else:
+                show_stream_entries_str = ''
+            if show_packet_entries:
+                show_packet_entries_str = 'packet=' + ','.join(show_packet_entries.add('codec_type'))
+            else:
+                show_packet_entries_str = ''
+            if show_frame_entries:
+                show_frame_entries_str = 'frame=' + ','.join(show_frame_entries.add('codec_type'))
+            else:
+                show_frame_entries_str = ''
+            show_entries = ':'.join([show_format_entries_str,show_stream_entries_str,show_packet_entries_str,show_frame_entries_str])
             if show_entries:
                 cmd.extend(["-show_entries",show_entries])
             if select_streams:
