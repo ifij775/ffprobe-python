@@ -36,7 +36,7 @@ class FFVideoStream(FFStream):
     def display_aspect_ratio(self):
         return self.__dict__['display_aspect_ratio']
     
-    def pix_fmt(self):
+    def pixel_format(self):
         return self.__dict__['pix_fmt']
     
     def level(self):
