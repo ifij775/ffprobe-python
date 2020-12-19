@@ -174,3 +174,6 @@ class FFStream:
             return int(self.__dict__.get('bit_rate', ''))
         except ValueError:
             raise FFProbeError('None integer bit_rate')
+            
+    def language(self):
+        return self.__dict__['TAG:language']
