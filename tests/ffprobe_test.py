@@ -64,7 +64,7 @@ def print_ffprobe(media: FFProbe):
             print('\t\tFrame Size:', stream.frame_size())
         print('\t\tDuration:', stream.duration_seconds())
         print('\t\tFrames:', stream.frames())
-        print('\t\tIs video:', stream.is_video())
+        print('\t\tIs video:', isinstance(stream,FFVideoStream))
     print('\tPackets:', len(media.packets()))
     print('\tFrames:', len(media.frames()))
     frames_by_stream = media.get_frames_by_stream()
