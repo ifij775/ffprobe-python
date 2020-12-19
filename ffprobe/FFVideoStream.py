@@ -12,6 +12,15 @@ class FFVideoStream(FFStream):
     def height(self):
         return int(self.__dict__['height'])
     
+    def frame_size(self):
+        """
+        Returns the pixel frame size as an integer tuple (width,height) if the stream is a video stream.
+        Returns None if it is not a video stream.
+        """
+        width = int(self.__dict__['width'])
+        height = int(self.__dict__['height'])
+        return (width,height)
+    
     def coded_width(self):
         return int(self.__dict__['coded_width'])
     
