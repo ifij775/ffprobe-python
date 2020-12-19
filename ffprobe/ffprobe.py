@@ -35,6 +35,7 @@ class FFProbe:
                  select_streams='',
                  show_format_entries={},
                  show_stream_entries={},
+                 show_stream_tags_entries={},
                  show_packet_entries={},
                  show_frame_entries={},
                  count_frames=False,
@@ -58,6 +59,8 @@ class FFProbe:
                 show_entries.append('format=' + ','.join(show_format_entries))
             if show_stream_entries:
                 show_entries.append('stream=' + ','.join(show_stream_entries.add('codec_type')))
+            if show_stream_tags_entries:
+                show_entries.append('stream=' + ','.join(show_stream_tags_entries))
             if show_packet_entries:
                 show_entries.append('packet=' + ','.join(show_packet_entries))
             if show_frame_entries:
