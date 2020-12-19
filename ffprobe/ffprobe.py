@@ -38,6 +38,7 @@ class FFProbe:
                  show_stream_tags_entries={},
                  show_packet_entries={},
                  show_frame_entries={},
+                 count_packets=False,
                  count_frames=False,
                  timeout=None):
         
@@ -69,6 +70,8 @@ class FFProbe:
                 cmd.extend(["-show_entries",':'.join(show_entries)])
             if select_streams:
                 cmd.extend(["-select_streams",select_streams])
+            if count_packets:
+                cmd.extend(["-count_packets"])
             if count_frames:
                 cmd.extend(["-count_frames"])
             cmd.append(self.path_to_video)
