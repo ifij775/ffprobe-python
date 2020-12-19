@@ -33,6 +33,22 @@ class FFVideoStream(FFStream):
     def level(self):
         return self.__dict__['level']
     
+    def color_range(self):
+        return self.__dict__['color_range']
+    
+    def color_space(self):
+        return self.__dict__['color_space']
+    
+    def color_transfer(self):
+        return self.__dict__['color_transfer']
+    
+    def color_primaries(self):
+        return self.__dict__['color_primaries']
+    
+    def bits_per_raw_sample(self):
+        return int(self.__dict__['bits_per_raw_sample'])
+    
+    
     def chroma_location(self):
         return self.__dict__['chroma_location']
     
@@ -41,3 +57,7 @@ class FFVideoStream(FFStream):
     
     def is_avc(self):
         return (self.__dict__['is_avc']=='true')
+    
+    def nal_length_size(self):
+        return int(self.__dict__['nal_length_size'])
+    
