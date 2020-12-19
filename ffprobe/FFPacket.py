@@ -41,6 +41,9 @@ class FFPacket:
     def pos(self):
         return int(self.__dict__['pos'])
     
+    def flags(self):
+        return self.__dict__['flags']
+    
     def __repr__(self):
         template = "<Packet: #Media-type: {media_type}, Stream-index: {stream_index} ({pts_time})>"
         return template.format(**self.__dict__)
