@@ -5,8 +5,6 @@ FFAudioStream
 from ffprobe.FFStream import FFStream
 
 class FFAudioStream(FFStream):
-    def language(self):
-        return self.__dict__['TAG:language']
     
     def sample_fmt(self):
         return self.__dict__['sample_fmt']
