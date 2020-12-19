@@ -7,6 +7,7 @@ sys.path.append(".")
 import unittest
 import os
 from ffprobe import FFProbe
+from FFVideoStream import FFVideoStream
 from ffprobe.exceptions import FFProbeError
 
 test_dir = os.path.dirname(os.path.abspath(__file__))
@@ -58,7 +59,7 @@ def print_ffprobe(media: FFProbe):
     for index, stream in enumerate(media.streams(), 1):
         print('\tStream: ', index)
         print('\t\tCodec:', stream.codec_description())
-        if stream.is_video():
+        if isinstance(stream,FFVideoStream):
             print('\t\tFrame Rate:', stream.frame_rate())
             print('\t\tFrame Size:', stream.frame_size())
         print('\t\tDuration:', stream.duration_seconds())
