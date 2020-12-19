@@ -148,12 +148,6 @@ class FFStream:
 
         return duration
 
-    def language(self):
-        """
-        Returns language tag of stream. e.g. eng
-        """
-        return self.__dict__.get('TAG:language', None)
-
     def codec(self):
         """
         Returns a string representation of the stream codec.
