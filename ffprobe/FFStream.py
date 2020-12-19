@@ -25,19 +25,20 @@ class FFStream:
             self.__dict__['framerate'] = 0
 
     def __repr__(self):
-        if self.is_video():
-            template = "<Stream: #{index} [{codec_type}] {codec_long_name}, {framerate}, ({width}x{height})>"
+        #if self.is_video():
+        #    template = "<Stream: #{index} [{codec_type}] {codec_long_name}, {framerate}, ({width}x{height})>"
 
-        elif self.is_audio():
-            template = "<Stream: #{index} [{codec_type}] {codec_long_name}, channels: {channels} ({channel_layout}), " \
-                       "{sample_rate}Hz> "
+        #elif self.is_audio():
+        #    template = "<Stream: #{index} [{codec_type}] {codec_long_name}, channels: {channels} ({channel_layout}), " \
+        #               "{sample_rate}Hz> "
 
-        elif self.is_subtitle() or self.is_attachment():
-            template = "<Stream: #{index} [{codec_type}] {codec_long_name}>"
+        #elif self.is_subtitle() or self.is_attachment():
+        #    template = "<Stream: #{index} [{codec_type}] {codec_long_name}>"
 
-        else:
-            template = ''
+        #else:
+        #    template = ''
 
+        template = "<Stream: #{index} [{codec_type}] {codec_long_name}>"
         return template.format(**self.__dict__)
     
     def stream_index(self):
@@ -46,43 +47,17 @@ class FFStream:
         """
         return int(self.__dict__['index'])
 
-    def is_audio(self):
-        """
-        Is this stream labelled as an audio stream?
-        """
-        return self.__dict__.get('codec_type', None) == 'audio'
-
-    def is_video(self):
-        """
-        Is the stream labelled as a video stream.
-        """
-        return self.__dict__.get('codec_type', None) == 'video'
-
-    def is_subtitle(self):
-        """
-        Is the stream labelled as a subtitle stream.
-        """
-        return self.__dict__.get('codec_type', None) == 'subtitle'
-
-    def is_attachment(self):
-        """
-        Is the stream labelled as a attachment stream.
-        """
-        return self.__dict__.get('codec_type', None) == 'attachment'
-
     def frame_rate(self):
         """
         Calculates and returns the frame rate as a float if the stream is a video stream.
         Returns None if it is not a video stream.
         """
-        if self.is_video():
-            if self.duration_seconds() > 0.0:
-                frame_rate = self.frames() / self.duration_seconds()
-            else:
-                frame_rate = self.__dict__['framerate']
-            return frame_rate
+        if self.duration_seconds() > 0.0:
+            frame_rate = self.frames() / self.duration_seconds()
         else:
-            return None
+            frame_rate = self.__dict__['framerate']
+        return frame_rate
+
 
     def frames(self):
         """
@@ -102,21 +77,18 @@ class FFStream:
 
         return frame_count
 
-    def duration_seconds(self):
+    def duration(self):
         """
         Returns the runtime duration of the video stream as a floating point number of seconds.
         Returns 0.0 if not a video stream.
         """
-        if self.is_video() or self.is_audio():
-            if self.__dict__.get('duration', '') != 'N/A':
-                try:
-                    duration = float(self.__dict__.get('duration', ''))
-                except ValueError:
-                    raise FFProbeError('None numeric duration')
-            else:
-                # When N/A is returned, set duration to 0 too
-                duration = 0.0
+        if self.__dict__.get('duration', '') != 'N/A':
+            try:
+                duration = float(self.__dict__.get('duration', ''))
+            except ValueError:
+                raise FFProbeError('None numeric duration')
         else:
+            # When N/A is returned, set duration to 0 too
             duration = 0.0
 
         return duration
