@@ -16,9 +16,8 @@ metadata=FFProbe('test-media-file.mov')
 # Video stream
 # metadata=FFProbe('http://some-streaming-url.com:8080/stream')
 
-for stream in metadata.streams:
-    if stream.is_video():
-        print('Stream contains {} frames.'.format(stream.frames()))
+for stream in metadata.video_streams():
+    print('Stream contains {} frames.'.format(stream.frames()))
 
 ```
 
