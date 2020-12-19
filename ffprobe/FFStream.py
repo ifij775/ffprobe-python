@@ -84,13 +84,6 @@ class FFStream:
         else:
             return None
 
-    def pixel_format(self):
-        """
-        Returns a string representing the pixel format of the video stream. e.g. yuv420p.
-        Returns none is it is not a video stream.
-        """
-        return self.__dict__.get('pix_fmt', None)
-
     def frames(self):
         """
         Returns the length of a video stream in frames. Returns 0 if not a video stream.
