@@ -19,3 +19,7 @@ class FFAudioStream(FFStream):
     
     def channel_layout(self):
         return self.__dict__['channel_layout']
+
+    def bits_per_sample(self):
+        return int(self.__dict__['bits_per_sample'])
+    
