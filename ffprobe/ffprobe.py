@@ -53,25 +53,17 @@ class FFProbe:
             if show_packets:
                 cmd.append("-show_packets")
                 
+            show_entries = []
             if show_format_entries:
-                show_format_entries_str = 'format=' + ','.join(show_format_entries)
-            else:
-                show_format_entries_str = ''
+                show_entries.append('format=' + ','.join(show_format_entries))
             if show_stream_entries:
-                show_stream_entries_str = 'stream=' + ','.join(show_stream_entries.add('codec_type'))
-            else:
-                show_stream_entries_str = ''
+                show_entries.append('stream=' + ','.join(show_stream_entries.add('codec_type')))
             if show_packet_entries:
-                show_packet_entries_str = 'packet=' + ','.join(show_packet_entries.add('codec_type'))
-            else:
-                show_packet_entries_str = ''
+                show_entries.append('packet=' + ','.join(show_packet_entries.add('codec_type')))
             if show_frame_entries:
-                show_frame_entries_str = 'frame=' + ','.join(show_frame_entries.add('codec_type'))
-            else:
-                show_frame_entries_str = ''
-            show_entries = ':'.join([show_format_entries_str,show_stream_entries_str,show_packet_entries_str,show_frame_entries_str])
+                show_entries.append('frame=' + ','.join(show_frame_entries.add('codec_type')))
             if show_entries:
-                cmd.extend(["-show_entries",show_entries])
+                cmd.extend(["-show_entries",':'.join(show_entries)])
             if select_streams:
                 cmd.extend(["-select_streams",select_streams])
             if count_frames:
