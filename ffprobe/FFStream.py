@@ -84,26 +84,6 @@ class FFStream:
         else:
             return None
 
-    def frame_size(self):
-        """
-        Returns the pixel frame size as an integer tuple (width,height) if the stream is a video stream.
-        Returns None if it is not a video stream.
-        """
-        size = None
-        if self.is_video():
-            width = self.__dict__['width']
-            height = self.__dict__['height']
-
-            if width and height:
-                try:
-                    size = (int(width), int(height))
-                except ValueError:
-                    raise FFProbeError("None integer size {}:{}".format(width, height))
-        else:
-            return None
-
-        return size
-
     def pixel_format(self):
         """
         Returns a string representing the pixel format of the video stream. e.g. yuv420p.
