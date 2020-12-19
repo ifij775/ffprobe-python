@@ -177,3 +177,9 @@ class FFStream:
             
     def language(self):
         return self.__dict__['TAG:language']
+    
+    def frame_count(self):
+        return int(self.__dict__['nb_read_frames'])
+    
+    def packet_count(self):
+        return int(self.__dict__['nb_read_packets'])
