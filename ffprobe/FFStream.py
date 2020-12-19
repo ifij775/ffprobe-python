@@ -77,7 +77,7 @@ class FFStream:
 
         return frame_count
 
-    def duration(self):
+    def duration_seconds(self):
         """
         Returns the runtime duration of the video stream as a floating point number of seconds.
         Returns 0.0 if not a video stream.
