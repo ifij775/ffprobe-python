@@ -7,7 +7,7 @@ sys.path.append(".")
 import unittest
 import os
 from ffprobe import FFProbe
-from FFVideoStream import FFVideoStream
+from ffprobe.FFVideoStream import FFVideoStream
 from ffprobe.exceptions import FFProbeError
 
 test_dir = os.path.dirname(os.path.abspath(__file__))
