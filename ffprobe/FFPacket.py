@@ -8,42 +8,43 @@ class FFPacket:
     """
 
     def __init__(self, data_lines):
+        self._data = {}
         for line in data_lines:
-            self.__dict__.update({key: value for key, value, *_ in [line.strip().split('=')]})
+            self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
             
     def codec_type(self):
-        return self.__dict__['codec_type']
+        return self._data['codec_type']
     
     def stream_index(self):
-        return int(self.__dict__['stream_index'])
+        return int(self._data['stream_index'])
     
     def pts(self):
-        return int(self.__dict__['pts'])
+        return int(self._data['pts'])
     
     def pts_time(self):
-        return float(self.__dict__['pts_time'])
+        return float(self._data['pts_time'])
 
     def dts(self):
-        return int(self.__dict__['dts'])
+        return int(self._data['dts'])
     
     def dts_time(self):
-        return float(self.__dict__['dts_time'])
+        return float(self._data['dts_time'])
 
     def duration(self):
-        return int(self.__dict__['duration'])
+        return int(self._data['duration'])
     
     def duration_time(self):
-        return float(self.__dict__['duration_time'])
+        return float(self._data['duration_time'])
 
     def size(self):
-        return int(self.__dict__['size'])
+        return int(self._data['size'])
     
     def pos(self):
-        return int(self.__dict__['pos'])
+        return int(self._data['pos'])
     
     def flags(self):
-        return self.__dict__['flags']
+        return self._data['flags']
     
     def __repr__(self):
         template = "<Packet: #Media-type: {codec_type}, Stream-index: {stream_index} ({pts_time})>"
-        return template.format(**self.__dict__)
+        return template.format(**self._data)
