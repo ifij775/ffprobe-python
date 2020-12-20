@@ -12,8 +12,8 @@ class FFFormat:
             if line.find("TAG:") >= 0:
                 line = line[line.find(":")+1:]
 
-            self.__dict__.update({key: value for key, value, *_ in [line.strip().split('=')]})
+            self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
 
     def __repr__(self):
         template = "<Format: #Streams: {nb_streams}, format: {format_name} ({format_long_name})>"
-        return template.format(**self.__dict__)
+        return template.format(**self._data)
