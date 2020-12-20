@@ -64,7 +64,7 @@ class FFProbeTest(unittest.TestCase):
 
 
 def print_ffprobe(media: FFProbe):
-    print('\tFormat:', media.format().format_name, "(", media.format().format_long_name, ")")
+    print('\tFormat:', media.format().format_name(), "(", media.format().format_long_name(), ")")
     print('\tStreams:', len(media.streams()))
     for index, stream in enumerate(media.streams(), 1):
         print('\tStream: ', index)
