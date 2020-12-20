@@ -56,7 +56,7 @@ class FFProbeTest(unittest.TestCase):
         try:
             media = FFProbe(test_videos[0],show_streams=True,show_packets=True)
             packets_by_stream = media.get_packets_by_stream()
-            for stream_index, packets in packets_by_stream:
+            for stream_index, packets in packets_by_stream.items():
                 bytes = sum([packet.size() for packet in packets],0)
                 print('Stream bitrate:', bytes*8/(media.streams()[stream_index].duration_seconds()*1000))
         except Exception as e:
