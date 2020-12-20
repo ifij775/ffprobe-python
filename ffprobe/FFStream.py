@@ -10,19 +10,19 @@ class FFStream:
     """
 
     def __init__(self, data_dict):
-        self.__dict__.update(data_dict)
+        self._data = data_dict
 
         try:
-            self.__dict__['framerate'] = round(
+            self._data['framerate'] = round(
                 functools.reduce(
-                    operator.truediv, map(int, self.__dict__.get('avg_frame_rate', '').split('/'))
+                    operator.truediv, map(int, self._data.get('avg_frame_rate', '').split('/'))
                 )
             )
 
         except ValueError:
-            self.__dict__['framerate'] = None
+            self._data['framerate'] = None
         except ZeroDivisionError:
-            self.__dict__['framerate'] = 0
+            self._data['framerate'] = 0
 
     def __repr__(self):
         #if self.is_video():
@@ -39,13 +39,13 @@ class FFStream:
         #    template = ''
 
         template = "<Stream: #{index} [{codec_type}] {codec_long_name}>"
-        return template.format(**self.__dict__)
+        return template.format(**self._data)
     
     def stream_index(self):
         """
         The stream index
         """
-        return int(self.__dict__['index'])
+        return int(self._data['index'])
 
     def frame_rate(self):
         """
@@ -55,7 +55,7 @@ class FFStream:
         if self.duration_seconds() > 0.0:
             frame_rate = self.frames() / self.duration_seconds()
         else:
-            frame_rate = self.__dict__['framerate']
+            frame_rate = self._data['framerate']
         return frame_rate
 
 
@@ -63,9 +63,9 @@ class FFStream:
         """
         Returns the length of a video stream in frames. Returns 0 if not a video stream.
         """
-        if self.__dict__.get('nb_frames', '') != 'N/A':
+        if self._data.get('nb_frames', '') != 'N/A':
             try:
-                frame_count = int(self.__dict__.get('nb_frames', ''))
+                frame_count = int(self._data.get('nb_frames', ''))
             except ValueError:
                 raise FFProbeError('None integer frame count')
         else:
@@ -79,9 +79,9 @@ class FFStream:
         Returns the runtime duration of the video stream as a floating point number of seconds.
         Returns 0.0 if not a video stream.
         """
-        if self.__dict__.get('duration', '') != 'N/A':
+        if self._data.get('duration', '') != 'N/A':
             try:
-                duration = float(self.__dict__.get('duration', ''))
+                duration = float(self._data.get('duration', ''))
             except ValueError:
                 raise FFProbeError('None numeric duration')
         else:
@@ -94,34 +94,34 @@ class FFStream:
         """
         Returns a string representation of the stream codec.
         """
-        return self.__dict__.get('codec_name', None)
+        return self._data.get('codec_name', None)
 
     def codec_description(self):
         """
         Returns a long representation of the stream codec.
         """
-        return self.__dict__.get('codec_long_name', None)
+        return self._data.get('codec_long_name', None)
 
     def codec_tag(self):
         """
         Returns a short representative tag of the stream codec.
         """
-        return self.__dict__.get('codec_tag_string', None)
+        return self._data.get('codec_tag_string', None)
 
     def bit_rate(self):
         """
         Returns bit_rate as an integer in bps
         """
         try:
-            return int(self.__dict__.get('bit_rate', ''))
+            return int(self._data.get('bit_rate', ''))
         except ValueError:
             raise FFProbeError('None integer bit_rate')
             
     def language(self):
-        return self.__dict__['TAG:language']
+        return self._data['TAG:language']
     
     def frame_count(self):
-        return int(self.__dict__['nb_read_frames'])
+        return int(self._data['nb_read_frames'])
     
     def packet_count(self):
-        return int(self.__dict__['nb_read_packets'])
+        return int(self._data['nb_read_packets'])
