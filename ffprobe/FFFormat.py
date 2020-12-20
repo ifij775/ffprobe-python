@@ -14,6 +14,12 @@ class FFFormat:
                 line = line[line.find(":")+1:]
 
             self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
+    
+    def format_name(self):
+        return self._data['format_name']
+    
+    def format_long_name(self):
+        return self._data['format_long_name']
 
     def __repr__(self):
         template = "<Format: #Streams: {nb_streams}, format: {format_name} ({format_long_name})>"
