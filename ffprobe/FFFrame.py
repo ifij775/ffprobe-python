@@ -8,42 +8,43 @@ class FFFrame:
     """
 
     def __init__(self, data_lines):
+        self._data = {}
         for line in data_lines:
-            self.__dict__.update({key: value for key, value, *_ in [line.strip().split('=')]})
+            self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
     
     def media_type(self):
-        return self.__dict__['media_type']
+        return self._data['media_type']
     
     def stream_index(self):
-        return int(self.__dict__['stream_index'])
+        return int(self._data['stream_index'])
     
     def is_key_frame(self):
-        return self.__dict__['key_frame']=='1'
+        return self._data['key_frame']=='1'
     
     def pkt_pts(self):
-        return int(self.__dict__['pkt_pts'])
+        return int(self._data['pkt_pts'])
     
     def pkt_pts_time(self):
-        return float(self.__dict__['pkt_pts_time'])
+        return float(self._data['pkt_pts_time'])
     
     def pkt_dts(self):
-        return int(self.__dict__['pkt_dts'])
+        return int(self._data['pkt_dts'])
     
     def pkt_dts_time(self):
-        return float(self.__dict__['pkt_dts_time'])
+        return float(self._data['pkt_dts_time'])
     
     def pkt_duration(self):
-        return int(self.__dict__['pkt_duration'])
+        return int(self._data['pkt_duration'])
     
     def pkt_duration_time(self):
-        return float(self.__dict__['pkt_duration_time'])
+        return float(self._data['pkt_duration_time'])
     
     def pkt_pos(self):
-        return int(self.__dict__['pkt_pos'])
+        return int(self._data['pkt_pos'])
     
     def pkt_size(self):
-        return int(self.__dict__['pkt_size'])
+        return int(self._data['pkt_size'])
 
     def __repr__(self):
         template = "<Frame: #Media-type: {media_type}, Stream-index: {stream_index} ({pkt_pts_time})>"
-        return template.format(**self.__dict__)
+        return template.format(**self._data)
