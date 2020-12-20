@@ -211,15 +211,13 @@ class FFProbe:
     
     def get_packets_by_stream(self):
         packets_by_stream = {}
-        if self.streams_data:
-            for packet in self.packets_data:
-                packets_by_stream.setdefault(packet.stream_index(),[]).append(packet)
+        for packet in self.packets_data:
+            packets_by_stream.setdefault(packet.stream_index(),[]).append(packet)
         return packets_by_stream
     def get_frames_by_stream(self):
         frames_by_stream = {}
-        if self.streams_data:
-            for frame in self.frames_data:
-                frames_by_stream.setdefault(frame.stream_index(),[]).append(frame)
+        for frame in self.frames_data:
+            frames_by_stream.setdefault(frame.stream_index(),[]).append(frame)
         return frames_by_stream
         
 
