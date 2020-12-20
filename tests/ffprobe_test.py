@@ -51,6 +51,16 @@ class FFProbeTest(unittest.TestCase):
                 raise e
             except Exception as e:
                 raise e
+                
+    def test_bitrate(self):
+        try:
+            media = FFProbe(test_streams[0],show_streams=True,show_packets=True)
+            packets_by_stream = media.get_packets_by_stream()
+            for stream_index, packets in packets_by_stream:
+                bytes = sum([packet.size() for packet in packets],0)
+                print('Stream bitrate:', bytes*8/media.streams()[stream_index].duration_seconds())
+        except Exception as e:
+            raise e
 
 
 def print_ffprobe(media: FFProbe):
