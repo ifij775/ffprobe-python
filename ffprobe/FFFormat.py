@@ -8,6 +8,7 @@ class FFFormat:
     """
 
     def __init__(self, data_lines):
+        self._data = []
         for line in data_lines:
             if line.find("TAG:") >= 0:
                 line = line[line.find(":")+1:]
