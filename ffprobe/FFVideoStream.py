@@ -25,6 +25,20 @@ class FFVideoStream(FFStream):
     def coded_height(self):
         return int(self._data['coded_height'])
     
+    def frame_rate(self):
+        frame_rate = functools.reduce(operator.truediv, map(int, self._data['r_frame_rate'].split('/'))))
+        frame_rate = float('{0:.2f}'.format(frame_rate))
+        if frame_rate.is_integer():
+            frame_rate = int(frame_rate)
+        return frame_rate
+    
+    def avg_frame_rate(self):
+        avg_frame_rate = functools.reduce(operator.truediv, map(int, self._data['avg_frame_rate'].split('/'))))
+        avg_frame_rate = float('{0:.2f}'.format(avg_frame_rate))
+        if avg_frame_rate.is_integer():
+            avg_frame_rate = int(avg_frame_rate)
+        return avg_frame_rate
+    
     def has_b_frames(self):
         return (self._data['has_b_frames']=='1')
     
