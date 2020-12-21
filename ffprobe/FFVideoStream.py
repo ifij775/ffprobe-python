@@ -8,6 +8,9 @@ import functools
 from ffprobe.FFStream import FFStream
 
 class FFVideoStream(FFStream):
+    def codec_time_base(self):
+        return tuple(map(int,self._data['codec_time_base'].split('/')))
+    
     def width(self):
         return int(self._data['width'])
     
