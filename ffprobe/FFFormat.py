@@ -18,6 +18,12 @@ class FFFormat:
     def filename(self):
         return self._data['filename']
     
+    def num_streams(self):
+        return int(self._data['nb_streams'])
+    
+    def num_programs(self):
+        return int(self._data['nb_programs'])
+    
     def format_name(self):
         return self._data['format_name']
     
