@@ -6,6 +6,9 @@ from ffprobe.FFStream import FFStream
 
 class FFAudioStream(FFStream):
     
+    def codec_time_base(self):
+        return tuple(map(int,self._data['codec_time_base'].split('/')))
+    
     def sample_fmt(self):
         return self._data['sample_fmt']
     
