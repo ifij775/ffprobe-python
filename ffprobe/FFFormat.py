@@ -15,6 +15,9 @@ class FFFormat:
 
             self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
     
+    def filename(self):
+        return self._data['filename']
+    
     def format_name(self):
         return self._data['format_name']
     
