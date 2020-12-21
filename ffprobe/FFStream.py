@@ -12,18 +12,6 @@ class FFStream:
     def __init__(self, data_dict):
         self._data = data_dict
 
-        try:
-            self._data['framerate'] = round(
-                functools.reduce(
-                    operator.truediv, map(int, self._data.get('avg_frame_rate', '').split('/'))
-                )
-            )
-
-        except ValueError:
-            self._data['framerate'] = None
-        except ZeroDivisionError:
-            self._data['framerate'] = 0
-
     def __repr__(self):
         #if self.is_video():
         #    template = "<Stream: #{index} [{codec_type}] {codec_long_name}, {framerate}, ({width}x{height})>"
@@ -46,18 +34,6 @@ class FFStream:
         The stream index
         """
         return int(self._data['index'])
-
-    def frame_rate(self):
-        """
-        Calculates and returns the frame rate as a float if the stream is a video stream.
-        Returns None if it is not a video stream.
-        """
-        if self.duration_seconds() > 0.0:
-            frame_rate = self.frames() / self.duration_seconds()
-        else:
-            frame_rate = self._data['framerate']
-        return frame_rate
-
 
     def frames(self):
         """
