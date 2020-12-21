@@ -24,6 +24,9 @@ class FFFormat:
     def title(self):
         return self._data['title']
     
+    def start_time(self):
+        return float(self._data['start_time'])
+    
     def duration(self):
         return float(self._data['duration'])
 
