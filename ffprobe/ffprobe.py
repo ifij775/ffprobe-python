@@ -142,7 +142,8 @@ class FFProbe:
                 elif frame and line.startswith('[/FRAME]'):
                     frame = False
                     # noinspection PyUnboundLocalVariable
-                    self.frames_data.append(FFFrame(data_lines))
+                    data_dict = FFProbe.parse_data(data_lines)
+                    self.frames_data.append(FFFrame(data_dict))
                 elif line.startswith('[PACKET]'):
                     packet = True
                     ignore_line = False
