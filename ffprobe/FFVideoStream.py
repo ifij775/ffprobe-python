@@ -3,6 +3,8 @@
 FFVideoStream
 '''
 
+import operator
+import functools
 from ffprobe.FFStream import FFStream
 
 class FFVideoStream(FFStream):
