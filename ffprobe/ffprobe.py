@@ -143,7 +143,12 @@ class FFProbe:
                     frame = False
                     # noinspection PyUnboundLocalVariable
                     data_dict = FFProbe.parse_data(data_lines)
-                    self.frames_data.append(FFFrame(data_dict))
+                    if data_dict['media_type']=='audio':
+                        self.frames_data.append(FFAudioFrame(data_dict))
+                    elif data_dict['media_type']=='video':
+                        self.frames_data.append(FFVideoFrame(data_dict))
+                    else: # TODO: Not sure about other frame types
+                        self.frames_data.append(FFFrame(data_dict))
                 elif line.startswith('[PACKET]'):
                     packet = True
                     ignore_line = False
