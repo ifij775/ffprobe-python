@@ -7,10 +7,8 @@ class FFFrame:
     An object representation of the multimedia frame.
     """
 
-    def __init__(self, data_lines):
-        self._data = {}
-        for line in data_lines:
-            self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
+    def __init__(self, data_dict):
+        self._data = data_dict
     
     def media_type(self):
         return self._data['media_type']
