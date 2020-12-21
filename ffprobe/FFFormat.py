@@ -29,6 +29,12 @@ class FFFormat:
     
     def duration(self):
         return float(self._data['duration'])
+    
+    def size(self):
+        return int(self._data['size'])
+    
+    def bit_rate(self):
+        return int(self._data['bit_rate'])
 
     def __repr__(self):
         template = "<Format: #Streams: {nb_streams}, format: {format_name} ({format_long_name})>"
