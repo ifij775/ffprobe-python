@@ -20,6 +20,12 @@ class FFFormat:
     
     def format_long_name(self):
         return self._data['format_long_name']
+    
+    def title(self):
+        return self._data['title']
+    
+    def duration(self):
+        return float(self._data['duration'])
 
     def __repr__(self):
         template = "<Format: #Streams: {nb_streams}, format: {format_name} ({format_long_name})>"
