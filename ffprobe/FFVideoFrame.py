@@ -5,7 +5,9 @@ class FFVideoFrame(FFFrame):
         return int(self._data['width'])
     def height(self):
         return int(self._data['height'])
-    def pix_fmt(self):
+    def frame_size(self):
+        return (self.width(), self.height())
+    def pixel_format(self):
         return self._data['pix_fmt']
     def sample_aspect_ratio(self):
         return self._data['sample_aspect_ratio']
