@@ -12,8 +12,9 @@ class FFFormat:
         for line in data_lines:
             if line.find("TAG:") >= 0:
                 line = line[line.find(":")+1:]
-
-            self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
+                self._data.update({key.lower(): value for key, value, *_ in [line.strip().split('=')]})
+            else:
+                self._data.update({key: value for key, value, *_ in [line.strip().split('=')]})
     
     def filename(self):
         return self._data['filename']
