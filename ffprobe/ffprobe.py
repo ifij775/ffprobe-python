@@ -63,7 +63,7 @@ class FFProbe:
             if show_stream_tags_entries:
                 show_entries.append('stream=' + ','.join(show_stream_tags_entries))
             if show_packet_entries:
-                show_entries.append('packet=' + ','.join(show_packet_entries))
+                show_entries.append('packet=' + ','.join(show_packet_entries.add('stream_index')))
             if show_frame_entries:
                 show_entries.append('frame=' + ','.join(show_frame_entries.add('codec_type')))
             if show_entries:
