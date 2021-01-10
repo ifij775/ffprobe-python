@@ -213,6 +213,10 @@ class FFProbe:
         return self.audio_data
     def video_streams(self):
         return self.video_data
+    def subtitle_streams(self):
+        return self.subtitle_data
+    def attachment_streams(self):
+        return self.attachment_data
     def packets(self):
         return self.packets_data
     def frames(self):
