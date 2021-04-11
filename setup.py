@@ -8,17 +8,17 @@ with open("README.md", "r") as fh:
 
 setup(
     name='ffprobe-python',
-    version='1.0.3',
+    version='2.0.0',
     description="""
     A wrapper around ffprobe command to extract metadata from media files.
     """,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author='Simon Hargreaves',
-    author_email='simon@simon-hargreaves.com',
-    maintainer='Mark Ma',
-    maintainer_email='519329064@qq.com',
-    url='https://github.com/gbstack/ffprobe-python',
+    author='Chris Weed',
+    author_email='chrisweed@gmail.com',
+    maintainer='Chris Weed',
+    maintainer_email='chrisweed@gmail.com',
+    url='https://github.com/ifij775/ffprobe-python',
     packages=['ffprobe'],
     keywords='ffmpeg, ffprobe, mpeg, mp4',
     classifiers=[
